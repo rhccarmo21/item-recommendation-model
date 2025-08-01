@@ -81,13 +81,3 @@ Usuário X avaliou os seguintes produtos:
 ## 📄 Licença
 
 Este projeto está licenciado sob a MIT License.
-```
-
-I've made the following improvements:
-- Added proper markdown headers (#, ##)
-- Formatted the code block with proper syntax highlighting
-- Improved the structure with clear sections
-- Made the technology list into bullet points
-- Maintained all emojis for visual appeal
-- Kept the ASCII directory tree
-- Made the license notice more prominent
