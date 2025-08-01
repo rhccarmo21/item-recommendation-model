@@ -1,271 +1,124 @@
+# 📦 Item Recommendation Model
 
-# 🧠 Item Recommendation Model
-
-[![Licença MIT](https://img.shields.io/badge/Licença-MIT-green)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/downloads/)
-[![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.0%2B-orange)](https://scikit-learn.org/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.6%2B-FF6F00)](https://www.tensorflow.org/)
-
-## 📌 Sumário
-1. [Visão Geral](#-visão-geral)  
-2. [Modelos Implementados](#-modelos-implementados)
-3. [Pipeline de Dados](#-pipeline-de-dados)
-4. [Métricas de Avaliação](#-métricas-de-avaliação)
-5. [Instalação](#-instalação)
-6. [Como Usar](#-como-usar)
-7. [Exemplos](#-exemplos)
-8. [Contribuição](#-contribuição)
-9. [Licença](#-licença)
+> Sistema simples de recomendação de itens utilizando métodos baseados em filtragem colaborativa.
 
 ---
 
-## 🌐 Visão Geral
+## 📌 Objetivo
 
-Sistema de recomendação baseado em múltiplas abordagens:
-
-- **Similaridade de conteúdo** (cosine similarity)
-- **Filtragem colaborativa** (KNN, matrix factorization)
-- **Modelos híbridos** (combina conteúdo + comportamento)
-- **Deep Learning** (autoencoders, GNN)
-
-**Aplicações:**
-- E-commerce (produtos similares)
-- Streaming (conteúdo personalizado)
-- Sistemas de informação (artigos relacionados)
-- Plataformas educacionais
+Este projeto implementa um sistema de recomendação de produtos baseado em similaridade entre usuários ou itens. Ele simula o funcionamento de plataformas como Amazon ou Netflix em versões reduzidas e didáticas, ideais para compreender a lógica de recomendação.
 
 ---
 
-## 🧮 Modelos Implementados
+## 🛠 Tecnologias Utilizadas
 
-### 1. Baseados em Similaridade
-| Modelo | Descrição | Hiperparâmetros |
-|--------|-----------|-----------------|
-| Cosine Similarity | Distância angular entre vetores | `metric='cosine'` |
-| Jaccard Index | Similaridade de conjuntos | `binary=True` |
-
-### 2. Filtragem Colaborativa
-| Modelo | Descrição | Vantagens |
-|--------|-----------|-----------|
-| KNN | K-vizinhos mais próximos | Simplicidade |
-| ALS | Fatoração de matriz implícita | Escalabilidade |
-
-### 3. Modelos Híbridos
-```python
-class HybridRecommender:
-    def __init__(self, content_weight=0.3, cf_weight=0.7):
-        self.content_model = ContentBased()
-        self.cf_model = CollaborativeFiltering()
-```
+- **Python 3.10+**
+- **Pandas**, **NumPy**
+- **Scikit-learn** – Cálculo de similaridade
+- **Matplotlib / Seaborn** – Visualização opcional
+- **Jupyter Notebook** (opcional para apresentação dos resultados)
 
 ---
 
-## 📂 Pipeline de Dados
+## 📊 Principais Funcionalidades
 
-### Pré-processamento
-```python
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-tfidf = TfidfVectorizer(stop_words='english')
-item_features = tfidf.fit_transform(item_descriptions)
-```
-
-### Matriz de Interações
-| UserID | ItemID | Rating | Timestamp |
-|--------|--------|--------|-----------|
-| 1 | 101 | 5 | 1636547890 |
-| 1 | 205 | 3 | 1636547990 |
-
-```python
-interaction_matrix = pd.pivot_table(
-    data=ratings_df,
-    values='rating',
-    index='user_id',
-    columns='item_id',
-    fill_value=0
-)
-```
+- Geração de matriz de interações usuário × item
+- Cálculo de similaridade (Cosine Similarity)
+- Recomendações personalizadas a partir do perfil de um usuário
+- Visualização simples dos itens recomendados
 
 ---
 
-## 📊 Métricas de Avaliação
+## 🚀 Como Executar
 
-| Métrica | Fórmula | Interpretação |
-|---------|---------|---------------|
-| Precision@K | `TP@K / K` | Relevância dos top K |
-| Recall@K | `TP@K / Total Relevant` | Cobertura de itens relevantes |
-| MAP | `Mean Average Precision` | Ordem das recomendações |
-| NDCG | `Discounted Cumulative Gain` | Posicionamento relativo |
-
-```python
-from evaluation import calculate_metrics
-
-metrics = calculate_metrics(
-    true_items=test_set,
-    recommended_items=predictions,
-    k=10
-)
-```
-
----
-
-## ⚙️ Instalação
-
-### Via pip
 ```bash
-pip install recsys-toolkit
-```
+# Clone o repositório
+git clone https://github.com/rhccarmo21/item-recommendation-model.git
+cd item-recommendation-model
 
-### Ambiente Conda
-```bash
-conda create -n recsys python=3.9
-conda activate recsys
+# (Opcional) Crie um ambiente virtual
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate     # Windows
+
+# Instale as dependências
 pip install -r requirements.txt
-```
 
-### Docker
-```bash
-docker pull recsys/engine:latest
-```
+# Execute o notebook principal
+jupyter notebook recommendation_model.ipynb
+
 
 ---
 
-## 🚀 Como Usar
+📁 Estrutura do Projeto
 
-### 1. Treinamento Básico
-```python
-from recsys.models import KNNRecommender
+item-recommendation-model/
+│
+├── data/                     # Dados fictícios de usuários e itens
+├── notebook/                 # Caderno Jupyter com a lógica do sistema
+├── src/                      # Código-fonte modularizado (separar funções)
+├── README.md                 # Documentação do projeto
+└── requirements.txt          # Dependências do Python
 
-model = KNNRecommender(
-    n_neighbors=50,
-    metric='cosine'
-)
-model.fit(interaction_matrix)
-```
-
-### 2. Recomendação em Batch
-```python
-recommendations = model.batch_predict(
-    user_ids=test_users,
-    n_recommendations=10
-)
-```
-
-### 3. API REST
-```python
-from recsys.api import RecommendationAPI
-
-api = RecommendationAPI(model)
-api.run(port=8000)
-```
 
 ---
 
-## 🛒 Exemplos Práticos
+🧪 Exemplos de Uso
 
-### Caso 1: E-commerce
-```python
-from recsys.utils import load_product_data
+Exemplo de entrada: Usuário X avaliou os seguintes produtos:
 
-data = load_product_data('ecommerce')
-model = HybridRecommender()
-model.fit(data)
-print(model.recommend(user_id=123))
-```
+Produto A: ⭐⭐⭐⭐
 
-### Caso 2: Sistema de Notícias
-```python
-news_model = ContentBasedRecommender(
-    vectorizer='tfidf',
-    ngrams=(1, 3)
-news_model.train(articles_df)
-```
+Produto B: ⭐⭐⭐⭐⭐
+
+
+Sistema recomenda:
+
+Produto C (baseado em similaridade com usuários que também avaliaram A e B)
+
+
 
 ---
 
-## 🗂 Estrutura do Projeto
+🔍 Possibilidades de Expansão
 
-```
-recsys-toolkit/
-├── data/
-│   ├── sample/          # Datasets de exemplo
-├── recsys/
-│   ├── models/          # Implementações dos modelos
-│   ├── evaluation/      # Métricas de avaliação
-│   ├── utils/           # Funções auxiliares
-├── notebooks/
-│   ├── benchmarks.ipynb # Comparação de modelos
-└── tests/
-```
+Adicionar recomendação híbrida (conteúdo + colaborativo)
+
+Aplicar métricas de avaliação (Precision@k, Recall@k)
+
+Interface web com Streamlit ou Gradio
+
+Integração com MLOps (deploy via API)
+
+
 
 ---
 
-## 🤝 Contribuição
+📌 Nível de Dificuldade
 
-1. **Adicionar Modelos**:
-   ```python
-   class NewModel(BaseRecommender):
-       def __init__(self, param1=0.5):
-           self.param1 = param1
-       
-       def fit(self, data):
-           # Implementação aqui
-   ```
+> 🟢 Fácil – Recomendado como projeto introdutório para portfólio de ciência de dados.
 
-2. **Padrões de Código**:
-   ```python
-   def cosine_similarity(A, B):
-       """Calcula similaridade cosseno entre duas matrizes
-       
-       Args:
-           A: Matriz de features (n_samples, n_features)
-           B: Matriz de features (m_samples, n_features)
-           
-       Returns:
-           Matriz de similaridade (n_samples, m_samples)
-       """
-       return dot_product / (norm_A * norm_B)
-   ```
 
-3. **Testes**:
-   ```bash
-   pytest tests/test_models.py -v
-   ```
+
 
 ---
 
-## 📜 Licença
+👤 Autor
 
-```text
-MIT License
+Roberto H. C. Carmo — Cientista de Dados com foco em soluções para o setor público e análise de políticas sociais.
 
-Copyright (c) 2023 Recommender Systems Toolkit
-
-Permissão é concedida...
-```
 
 ---
 
-💡 **Para Implementação em Produção:**
-- Adicionar cache para recomendações frequentes
-- Implementar mecanismos de fallback
-- Monitorar drift de dados continuamente
+📄 Licença
 
-[📘 Documentação Completa](https://recsys-toolkit.readthedocs.io) | [🎮 Playground Interativo](https://colab.research.google.com/recsys-demo)
-```
+Este projeto está licenciado sob a MIT License.
 
-### Destaques Específicos:
+---
 
-1. **Escalonamento**: Suporte a matrizes esparsas (SciPy)
-2. **Cold Start**: Estratégias para novos itens/usuários
-3. **Explicabilidade**: Geração de razões para recomendações
-4. **Deploy**: Modelos exportáveis como ONNX
-5. **Benchmarking**: Comparação automática de abordagens
+### Quer que eu atualize diretamente no repositório para você?
 
-### Para Implementação:
+Se quiser, posso gerar um `pull request` local ou instruções para subir via SSH (agora que sua chave está funcionando). Ou prefere que eu crie o `requirements.txt` e `recommendation_model.ipynb` esqueleto também?
 
-1. Definir schema de dados de interação
-2. Escolher modelo baseado no caso de uso
-3. Configurar pipeline de treinamento contínuo
-4. Implementar sistema de feedback implícito
-5. Monitorar métricas de negócio (CTR, conversão)
+Como deseja seguir?
+
