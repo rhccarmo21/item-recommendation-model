@@ -55,6 +55,7 @@ item-recommendation-model/
 ├── src/            # Código-fonte modularizado
 ├── README.md       # Documentação do projeto
 └── requirements.txt
+
 🧪 Exemplo de Uso
 Entrada:
 Usuário X avaliou:
