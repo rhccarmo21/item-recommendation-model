@@ -74,10 +74,6 @@ Usuário X avaliou os seguintes produtos:
 
 🟢 Fácil – Recomendado como projeto introdutório para portfólio de ciência de dados.
 
-## 👤 Autor
-
-**Roberto da Cunha** — Cientista de Dados com foco em soluções para o setor público e análise de políticas sociais.
-
 ## 📄 Licença
 
 Este projeto está licenciado sob a MIT License.
