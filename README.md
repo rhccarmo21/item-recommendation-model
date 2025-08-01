@@ -47,9 +47,6 @@ pip install -r requirements.txt
 # Execute o notebook principal
 jupyter notebook recommendation_model.ipynb
 
-
----
-
 📁 Estrutura do Projeto
 
 item-recommendation-model/
@@ -59,29 +56,19 @@ item-recommendation-model/
 ├── src/                      # Código-fonte modularizado (separar funções)
 ├── README.md                 # Documentação do projeto
 └── requirements.txt          # Dependências do Python
-
-
----
-
 🧪 Exemplos de Uso
-
-Exemplo de entrada: Usuário X avaliou os seguintes produtos:
+Exemplo de entrada:
+Usuário X avaliou os seguintes produtos:
 
 Produto A: ⭐⭐⭐⭐
 
 Produto B: ⭐⭐⭐⭐⭐
 
-
 Sistema recomenda:
 
 Produto C (baseado em similaridade com usuários que também avaliaram A e B)
 
-
-
----
-
 🔍 Possibilidades de Expansão
-
 Adicionar recomendação híbrida (conteúdo + colaborativo)
 
 Aplicar métricas de avaliação (Precision@k, Recall@k)
@@ -90,35 +77,11 @@ Interface web com Streamlit ou Gradio
 
 Integração com MLOps (deploy via API)
 
-
-
----
-
 📌 Nível de Dificuldade
-
-> 🟢 Fácil – Recomendado como projeto introdutório para portfólio de ciência de dados.
-
-
-
-
----
+🟢 Fácil – Recomendado como projeto introdutório para portfólio de ciência de dados.
 
 👤 Autor
-
-Roberto H. C. Carmo — Cientista de Dados com foco em soluções para o setor público e análise de políticas sociais.
-
-
----
+Roberto da Cunha — Cientista de Dados com foco em soluções para o setor público e análise de políticas sociais.
 
 📄 Licença
-
 Este projeto está licenciado sob a MIT License.
-
----
-
-### Quer que eu atualize diretamente no repositório para você?
-
-Se quiser, posso gerar um `pull request` local ou instruções para subir via SSH (agora que sua chave está funcionando). Ou prefere que eu crie o `requirements.txt` e `recommendation_model.ipynb` esqueleto também?
-
-Como deseja seguir?
-
